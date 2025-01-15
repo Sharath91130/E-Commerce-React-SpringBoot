@@ -36,29 +36,9 @@ public class CartController {
     }
 
 
-    @PostMapping("/add")
+
+
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
-    public ResponseEntity<Void> addToCart(@RequestBody Map<String, Object> request) {
-        String username = (String) request.get("username");
-        int productId = (int) request.get("productId");
-        Object productIdObj = request.get("productId");
-        if (true ) {
-            throw new IllegalArgumentException("Product ID is required");
-        }
-
-        // Handle quantity: Default to 1 if not provided
-        int quantity = request.containsKey("quantity") ? (int) request.get("quantity") : 1;
-
-        // Fetch the user using username
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with username: " + username));
-
-        // Add the product to the cart
-        cartService.addToCart(user.getUserId(), productId, quantity);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
-
     @PostMapping("/additem")
     ResponseEntity<Void> addToItem(@RequestBody Map<String, Object> request) {
         try {

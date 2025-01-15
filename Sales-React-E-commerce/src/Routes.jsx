@@ -13,7 +13,7 @@ const AppRoutes = () => {
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<RegistrationPage />} />
       <Route path="/customerhome" element={<CustomerHomePage />} />
-      <Route path="/cart" element={<Epcart2/>} />
+      <Route path="/cart" element={<CartPage/>} />
     </Routes>
   );
 };

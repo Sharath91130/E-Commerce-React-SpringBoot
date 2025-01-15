@@ -47,7 +47,7 @@ public class AuthenticationFilter implements Filter {
   }
   // Handle preflight (OPTIONS) requests
   if (httpRequest.getMethod().equalsIgnoreCase("OPTIONS")) {
-   httpResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:5174");
+   httpResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
    httpResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
    httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
    httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
