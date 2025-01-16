@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    value: 10, // Default state
+    value: 0, // Default state
     status: 'idle', // Track loading state
     error: null, // Track errors
 };

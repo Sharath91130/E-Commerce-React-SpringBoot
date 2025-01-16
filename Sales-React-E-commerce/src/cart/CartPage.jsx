@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./CartPage.css";
-import {Footer} from "../Footer.jsx"
-import {Header} from "../Header.jsx";
-
-
-
-
+import { Footer } from "../Footer.jsx";
+import { Header } from "../Header.jsx";
+import PaymentCheckOut from "../PaymentCheckOut.jsx";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -36,7 +33,6 @@ const CartPage = () => {
         console.error("Error fetching cart items:", error);
       }
     };
-
     fetchCartItems();
   }, []);
 
@@ -130,19 +126,16 @@ const CartPage = () => {
             <a href="#" className="back-button">
               ← Shopping Continue
             </a>
-
             <div className="cart-header">
               <h2>Shopping Cart</h2>
               <p>You have {cartItems.length} items in your cart</p>
             </div>
-
             <div className="cart-items">
               {cartItems.map((item) => (
                   <div key={item.product_id} className="cart-item">
                     <img
                         src={
-                            item.image_url ||
-                            "https://via.placeholder.com/80?text=No+Image"
+                            item.image_url || "https://via.placeholder.com/80?text=No+Image"
                         }
                         alt={item.name}
                     />
@@ -169,9 +162,7 @@ const CartPage = () => {
                             +
                           </button>
                         </div>
-                        <span className="price">
-                      ₹{item.total_price}
-                    </span>
+                        <span className="price">₹{item.total_price}</span>
                         <button
                             className="remove-btn"
                             onClick={() => handleRemoveItem(item.product_id)}
@@ -184,7 +175,6 @@ const CartPage = () => {
               ))}
             </div>
           </div>
-
           <div className="checkout-section">
             <h2>Order Summary</h2>
             <div className="checkout-summary">
@@ -204,7 +194,11 @@ const CartPage = () => {
                 <span>Total</span>
                 <span>₹{(parseFloat(subtotal) + parseFloat(shipping)).toFixed(2)}</span>
               </div>
-              <button className="checkout-button">Proceed to Checkout</button>
+              {/* Passing props to PaymentCheckOut */}
+              <PaymentCheckOut
+                  totalAmount={parseFloat(subtotal) + parseFloat(shipping)}
+                  cartItems={cartItems}
+              />
             </div>
           </div>
         </div>
