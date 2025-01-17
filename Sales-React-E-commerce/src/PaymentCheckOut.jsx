@@ -1,7 +1,10 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 const PaymentCheck = ({ totalAmount, cartItems }) => {
+    const navigate = useNavigate();
     const handleCheckout = async () => {
+
         try {
             // Prepare the request body for the backend API
             const requestBody = {
@@ -50,7 +53,10 @@ const PaymentCheck = ({ totalAmount, cartItems }) => {
                         );
                         const result = await verifyResponse.text();
                         if (verifyResponse.ok) {
+
                             alert("Payment verified successfully!");
+                            navigate("/customerhome")
+
                             console.log("Redirecting to customer home...");
                         } else {
                             alert("Payment verification failed: " + result);

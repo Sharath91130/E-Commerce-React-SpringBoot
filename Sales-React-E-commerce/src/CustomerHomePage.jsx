@@ -5,6 +5,8 @@ import { Footer } from './Footer';
 import { Header } from './Header';
 import './assets/styles.css';
 import {fetchCartCount} from "./CartFeature/countSlice.js";
+import {useNavigate} from "react-router-dom";
+import CheckAuth from "./Auth.jsx";
 
 export default function CustomerHomePage() {
   const [products, setProducts] = useState([]);
@@ -14,6 +16,7 @@ export default function CustomerHomePage() {
   const [isCartLoading, setIsCartLoading] = useState(false);
   const[productid,setProductId]=useState(5)
   // State for cart loading
+  const navigate = useNavigate();
 
   // Fetch products when the component mounts or the username changes
   useEffect(() => {
@@ -21,6 +24,7 @@ export default function CustomerHomePage() {
     if (username !== 'Guest') {
       fetchCartCount(); // Fetch cart count only if a user is logged in
     }
+
   }, [username]);
 
   const fetchProducts = async (category = '') => {
@@ -30,7 +34,8 @@ export default function CustomerHomePage() {
           { credentials: 'include' }
       );
       const data = await response.json();
-      setUsername(data.user?.name || 'Guest'); // Extract username
+      setUsername(data.user?.name || 'Guest');
+      // Extract username
       setProducts(data.products || []);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -70,7 +75,9 @@ export default function CustomerHomePage() {
   };
 
   return (
+
       <div className="customer-homepage">
+        <CheckAuth/>
         <Header
             cartCount={isCartLoading ? '...' : cartError ? 'Error' : cartCount}
             username={username}

@@ -6,6 +6,7 @@ import Logo from './Logo';
 
 export function Header({ cartCount, username }) {
   return (
+
     <header className="header">
       <div className="header-content">
         <Logo />

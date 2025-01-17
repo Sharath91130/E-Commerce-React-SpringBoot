@@ -526,3 +526,19 @@ span.username {
   border-radius: 50%;
   object-fit: cover;
 }
+.order-details-container {
+  background-color: #4caf50; /* Green background */
+  color: white; /* Text color */
+  padding: 20px; /* Padding around the content */
+  border-radius: 10px; /* Rounded corners */
+  text-align: center; /* Center the text inside */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+  margin-bottom: 20px; /* Space below the div */
+}
+
+.order-details-heading {
+  margin: 0; /* Remove default margin */
+  font-size: 1.8rem; /* Adjust font size */
+  font-weight: bold; /* Make text bold */
+  text-transform: uppercase; /* Uppercase text for emphasis */
+}

@@ -3,8 +3,11 @@ import "./CartPage.css";
 import { Footer } from "../Footer.jsx";
 import { Header } from "../Header.jsx";
 import PaymentCheckOut from "../PaymentCheckOut.jsx";
+import CheckAuth from "../Auth.jsx";
 
 const CartPage = () => {
+
+
   const [cartItems, setCartItems] = useState([]);
   const [overallPrice, setOverallPrice] = useState(0);
   const [username, setUsername] = useState("");
@@ -119,11 +122,13 @@ const CartPage = () => {
   }
 
   return (
-      <div style={{ width: "100vw" }}>
-        <Header cartCount={totalProducts()} username={username} />
+
+      <div style={{width: "100vw"}}>
+
+        <Header cartCount={totalProducts()} username={username}/>
         <div className="cart-container">
           <div className="cart-page">
-            <a href="#" className="back-button">
+            <a href="http://localhost:5173/customerhome" className="back-button">
               ← Shopping Continue
             </a>
             <div className="cart-header">
@@ -202,7 +207,7 @@ const CartPage = () => {
             </div>
           </div>
         </div>
-        <Footer />
+        <Footer/>
       </div>
   );
 };
