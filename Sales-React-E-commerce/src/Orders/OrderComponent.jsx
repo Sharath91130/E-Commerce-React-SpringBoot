@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import {Header} from "../Header.jsx";
 import '../assets/styles.css';
 import CheckAuth from "../Auth.jsx";
+import {Footer} from "../Footer.jsx";
 
 export function OrderDetails() {
 
@@ -91,6 +92,7 @@ export function OrderDetails() {
                     </div>
                 ))}
             </div>
+            <Footer/>
         </div>
         </div>
     );

@@ -6,6 +6,8 @@ import CustomerHomePage from "./CustomerHomePage";
 import CartPage from "./cart/CartPage";
 import {OrderDetails} from "./Orders/OrderComponent.jsx";
 import CheckAuth from "./Auth.jsx";
+import AdminHomePage from "./Admin/AdminHomePage.jsx";
+import ProductForm from "./Admin/AdminHomePage.jsx";
 
 
 
@@ -19,6 +21,7 @@ const AppRoutes = () => {
       <Route path="/customerhome" element={<CustomerHomePage />} />
       <Route path="/cart" element={<CartPage/>} />
         <Route path={"/orders"} element={<OrderDetails/>}/>
+        <Route path={"/adminhome"} element={<ProductForm/>}/>
     </Routes>
   );
 };

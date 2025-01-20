@@ -1,6 +1,6 @@
 package com.kodnest.sales_backend.Enitity;
+
 import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -111,4 +111,17 @@ public class Product {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+//    @ManyToOne
+//    @JoinColumn(name = "Admin_Id", referencedColumnName = "userId", nullable = true)
+//    private User admin;
+//
+//    public void setAdmin(User admin) {
+//        // Check if the user's role is ADMIN (using enum comparison)
+//        if (admin != null && admin.getRole() == Role.ADMIN) {
+//            this.admin = admin;  // Only set if the role is ADMIN
+//        } else {
+//            throw new IllegalArgumentException("Admin must have the role 'ADMIN'");
+//        }
+//    }
 }

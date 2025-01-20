@@ -82,14 +82,15 @@ export default function RegistrationPage() {
           <div className="form-group">
             <label htmlFor="role" className="form-label">Role</label>
             <select
-              id="role"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              required
-              className="form-select"
+                id="role"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                required
+                className="form-select"
             >
               <option value="" disabled>Select your role</option>
               <option value="CUSTOMER">Customer</option>
+              <option value="ADMIN">ADMIN</option>
             </select>
           </div>
           <button type="submit" className="form-button">Sign Up</button>

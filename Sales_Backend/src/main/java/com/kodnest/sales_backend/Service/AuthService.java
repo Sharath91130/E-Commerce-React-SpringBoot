@@ -8,8 +8,6 @@ import com.kodnest.sales_backend.Repo.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,16 +55,16 @@ jwtTokenRepository) {
 LocalDateTime.now().plusHours(1));
  jwtTokenRepository.save(jwtToken);
  }
- public void logout(HttpServletResponse response) {
- Cookie cookie = new Cookie("authToken", null);
- cookie.setHttpOnly(true);
- cookie.setMaxAge(0);
- cookie.setPath("/");
- response.addCookie(cookie);
- // Invalidate the token in the database (if exists)
- Optional<JWTToken> jwtToken =
-jwtTokenRepository.findByToken(cookie.getValue());
- jwtToken.ifPresent(jwtTokenRepository::delete);
+ public void logout(User user) {
+  int userId = user.getUserId();
+
+  // Retrieve the JWT token associated with the user
+  JWTToken token = jwtTokenRepository.findByUserId(userId);
+
+  // If a token exists, delete it from the repository
+  if (token != null) {
+   jwtTokenRepository.deleteByUserId(userId);
+  }
  }
  public boolean validateToken(String token) {
  try {

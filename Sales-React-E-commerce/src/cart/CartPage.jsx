@@ -4,6 +4,7 @@ import { Footer } from "../Footer.jsx";
 import { Header } from "../Header.jsx";
 import PaymentCheckOut from "../PaymentCheckOut.jsx";
 import CheckAuth from "../Auth.jsx";
+import {useSelector} from "react-redux";
 
 const CartPage = () => {
 
@@ -11,7 +12,8 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [overallPrice, setOverallPrice] = useState(0);
   const [username, setUsername] = useState("");
-  const [subtotal, setSubtotal] = useState(0); // State to store the subtotal
+  const [subtotal, setSubtotal] = useState(0);
+  const countcart = useSelector((state) => state.count.value);// State to store the subtotal
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -125,7 +127,7 @@ const CartPage = () => {
 
       <div style={{width: "100vw"}}>
 
-        <Header cartCount={totalProducts()} username={username}/>
+        <Header cartCount={countcart} username={username}/>
         <div className="cart-container">
           <div className="cart-page">
             <a href="http://localhost:5173/customerhome" className="back-button">

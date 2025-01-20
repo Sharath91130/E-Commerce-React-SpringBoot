@@ -1,18 +1,31 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from React Router
+import {Link, useNavigate} from 'react-router-dom'; // Import Link from React Router
 import './assets/styles.css';
 
 export function ProfileDropdown({ username }) {
   const [isOpen, setIsOpen] = useState(false);
-
+    const navigate = useNavigate();
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleLogout = () => {
-    console.log('User logged out');
-    // Add your logout functionality here
-  };
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('http://localhost:9090/api/auth/logout', {
+                method: 'POST', // Use POST as logout often involves session clearing
+                credentials: 'include', // Include credentials like cookies for authentication
+            });
+
+            if (response.ok) {
+                console.log('User successfully logged out');
+                navigate('/'); // Redirect to login page
+            } else {
+                console.error('Failed to log out');
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+    };
 
   return (
       <div className="profile-dropdown">
