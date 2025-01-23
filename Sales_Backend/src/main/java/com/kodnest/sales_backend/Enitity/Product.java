@@ -95,6 +95,15 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+    @Column(name="Admin_id")
+    private Integer admin_id;
+    public Integer getAdmin_id() {
+        return admin_id;
+    }
+
+    public void setAdmin_id(Integer admin_id) {
+        this.admin_id = admin_id;
+    }
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
@@ -102,7 +111,7 @@ public class Product {
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime updatedAt;
 
-    public Product(String name, String description, BigDecimal price, Integer stock, Category category, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Product(String name, String description, BigDecimal price, Integer stock, Category category, LocalDateTime createdAt, LocalDateTime updatedAt,Integer  admin_id) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -110,6 +119,7 @@ public class Product {
         this.category = category;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.admin_id=admin_id;
     }
 
 //    @ManyToOne

@@ -1,14 +1,12 @@
 package com.kodnest.sales_backend.Enitity;
 
 import jakarta.persistence.*;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -19,6 +17,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Integer userId;
+
+
+
+
 
     @Column(name = "username", nullable = false, unique = true, length = 50)
     private String username;
@@ -47,6 +49,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role;
+
     }
 
     public Integer getUserId() {

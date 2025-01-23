@@ -3,10 +3,11 @@ import "../assets/styles.css";
 
 export default function ProductForm() {
     const [name, setName] = useState("");
-    const [category, setCategory] = useState("Shirts");
+    const [category, setCategory] = useState("1"); // Default to "Shirts" category
     const [imageUrl, setImageUrl] = useState("");
     const [price, setPrice] = useState("");
     const [stock, setStock] = useState("");
+    const [description, setDescription] = useState("");
     const [error, setError] = useState(null);
 
     const handleAddProduct = async (e) => {
@@ -14,29 +15,46 @@ export default function ProductForm() {
         setError(null); // Clear previous errors
 
         try {
-            const response = await fetch("http://localhost:9090/api/products", {
+            const response = await fetch("http://localhost:9090/admin/products/add", {
+                credentials: "include",
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ name, category, imageUrl, price, stock }),
+                body: JSON.stringify({
+                    name,
+                    description,
+                    price,
+                    stock,
+                    categoryId: category,
+                    imageUrl,
+                }),
             });
 
-            const data = await response.json();
+            const contentType = response.headers.get("content-type");
+            let data = null;
+
+            if (contentType && contentType.includes("application/json")) {
+                data = await response.json();
+            } else {
+                data = { error: await response.text() }; // Handle non-JSON responses
+            }
+
             if (response.ok) {
                 console.log("Product added successfully:", data);
                 alert("Product added successfully!");
                 // Clear the form
                 setName("");
-                setCategory("Shirts");
+                setCategory("1"); // Reset to default category
                 setImageUrl("");
                 setPrice("");
                 setStock("");
+                setDescription("");
             } else {
                 throw new Error(data.error || "Failed to add product");
             }
         } catch (err) {
-            setError(err.message);
+            setError(err.message || "Something went wrong");
         }
     };
 
@@ -71,8 +89,7 @@ export default function ProductForm() {
                             <option value="2">Pants</option>
                             <option value="3">Accessories</option>
                             <option value="4">Mobiles</option>
-                            <option value="5">Mobiles Accessories </option>
-
+                            <option value="5">Mobile Accessories</option>
                         </select>
                     </div>
                     <div className="form-group">
@@ -83,6 +100,18 @@ export default function ProductForm() {
                             placeholder="Enter image URL"
                             value={imageUrl}
                             onChange={(e) => setImageUrl(e.target.value)}
+                            required
+                            className="form-input"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="description" className="form-label">Description</label>
+                        <input
+                            id="description"
+                            type="text"
+                            placeholder="Enter product description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                             required
                             className="form-input"
                         />

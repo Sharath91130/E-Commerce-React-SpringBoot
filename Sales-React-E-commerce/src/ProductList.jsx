@@ -20,9 +20,9 @@ export function ProductList({ products, onAddToCart }) {
                             alt={product.name}
                             className="product-image"
                             loading="lazy"
-                            onError={(e) => {
-                                e.target.src = 'https://via.placeholder.com/150';
-                            }}
+                            // onError={(e) => {
+                            //     e.target.src = 'https://via.placeholder.com/150';
+                            // }}
                         />
                         <div className="product-info">
                             <h3 className="product-name">{product.name}</h3>

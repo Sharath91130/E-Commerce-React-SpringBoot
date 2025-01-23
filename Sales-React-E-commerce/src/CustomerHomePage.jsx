@@ -77,7 +77,7 @@ export default function CustomerHomePage() {
   return (
 
       <div className="customer-homepage">
-        <CheckAuth/>
+
         <Header
             cartCount={isCartLoading ? '...' : cartError ? 'Error' : cartCount}
             username={username}
