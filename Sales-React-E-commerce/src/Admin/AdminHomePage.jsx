@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../assets/styles.css";
+import {Link} from "react-router-dom";
 
 export default function ProductForm() {
     const [name, setName] = useState("");
@@ -142,6 +143,13 @@ export default function ProductForm() {
                     </div>
                     <button type="submit" className="form-button">Add Product</button>
                 </form>
+            </div>
+            <div>
+                <Link to="/items">View your products</Link> {/* Navigate to Profile page */}
+               {/*// <Link to="/orders">Orders</Link> /!* Navigate to Orders page *!/*/}
+
+
+
             </div>
         </div>
     );

@@ -18,4 +18,11 @@ public interface OrderitemRepository extends JpaRepository<OrderItem,Integer> {
 @Query("SELECT oi FROM OrderItem oi WHERE oi.order.userId = :userId AND oi.order.status = :status")
     List<OrderItem> findSuccessfulOrderItemsByUserId(@Param("userId") Integer userId, @Param("status") OrderStatus status);
 
+
+//    @Query("SELECT oi.productId, oi.quantity, oi.pricePerUnit, oi.totalPrice, oi.order " +
+//            "FROM OrderItem oi " +
+//            "LEFT JOIN Product p ON oi.productId = p.productId AND p.admin_id = :adminId " +
+//            "WHERE p.admin_id = :adminId")
+
+
 }

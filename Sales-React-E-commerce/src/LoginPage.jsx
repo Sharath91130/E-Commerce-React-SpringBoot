@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./assets/styles.css";
+import AppRoutes from "./Routes.jsx";
+import {ProductList} from "./ProductList.jsx";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role,setRole]=useState('')
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -31,10 +34,13 @@ export default function LoginPage() {
 
       if (response.ok) {
         if (data.role === "CUSTOMER") {
-          navigate("/customerhome");
-        } else if (data.role === "ADMIN") {
-          navigate("/adminhome");
-        } else {
+          navigate("/customerhome")
+
+        } else if(data.role){
+          navigate("/adminhome")
+
+        }
+        else {
           navigate("/"); // Redirect to a default page if role is unknown
         }
       } else {
@@ -48,51 +54,56 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="page-layout">
-      <div className="page-container">
-        <div className="form-container">
-          <h1 className="form-title">Login</h1>
-          {error && <p className="error-message">{error}</p>}
-          <form onSubmit={handleSignIn} className="form-content">
-            <div className="form-group">
-              <label htmlFor="username" className="form-label">
-                Username
-              </label>
-              <input
-                id="username"
-                type="text"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                className="form-input"
-              />
+      <div className="page-layout">
+
+        <div className="page-container">
+          <div className="form-container">
+            <h1 className="form-title">Login</h1>
+            {error && <p className="error-message">{error}</p>}
+            <form onSubmit={handleSignIn} className="form-content">
+              <div className="form-group">
+                <label htmlFor="username" className="form-label">
+                  Username
+                </label>
+                <input
+                    id="username"
+                    type="text"
+                    placeholder="Enter your username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                    className="form-input"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password" className="form-label">
+                  Password
+                </label>
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="form-input"
+                />
+              </div>
+
+              <button type="submit" className="form-button">
+                Sign In
+              </button>
+
+            </form>
+
+            <div className="form-footer">
+              <a href="/register" className="form-link">
+                New User? Sign up here
+              </a>
             </div>
-            <div className="form-group">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="form-input"
-              />
-            </div>
-            <button type="submit" className="form-button">
-              Sign In
-            </button>
-          </form>
-          <div className="form-footer">
-            <a href="/register" className="form-link">
-              New User? Sign up here
-            </a>
           </div>
         </div>
+
       </div>
-    </div>
   );
 }

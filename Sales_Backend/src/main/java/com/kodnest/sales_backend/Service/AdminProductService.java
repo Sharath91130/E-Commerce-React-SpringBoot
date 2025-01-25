@@ -6,10 +6,12 @@ import com.kodnest.sales_backend.Enitity.ProductImage;
 import com.kodnest.sales_backend.Repo.CategoryRepository;
 import com.kodnest.sales_backend.Repo.ProductImageRepository;
 import com.kodnest.sales_backend.Repo.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -69,5 +71,48 @@ public class AdminProductService {
 
         // Delete the product
         productRepository.deleteById(productId);
+    }
+    public List<Product> getProduct(Integer Admin_id){
+        List<Product> productList=productRepository.findProductsByUserId(Admin_id);
+
+        return  productList;
+    }
+    public Product updateProduct(Integer productId, Product updatedProduct,String imageUrl) {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+
+        if (optionalProduct.isPresent()) {
+            Product existingProduct = optionalProduct.get();
+
+            existingProduct.setName(updatedProduct.getName());
+            existingProduct.setPrice(updatedProduct.getPrice());
+            existingProduct.setDescription(updatedProduct.getDescription());
+            existingProduct.setStock(updatedProduct.getStock());
+            //existingProduct.setImages(updatedProduct.getImages());
+            existingProduct.setUpdatedAt(LocalDateTime.now());
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                ProductImage productImage = new ProductImage();
+                productImage.setProduct(existingProduct);
+                productImage.setImageUrl(imageUrl);
+                productImageRepository.save(productImage);
+            } else {
+                throw new IllegalArgumentException("Product image URL cannot be empty");
+            }
+
+
+
+            return productRepository.save(existingProduct);
+
+        } else {
+            throw new RuntimeException("Product with ID " + productId + " not found.");
+        }
+    }
+    @Transactional
+    protected void deleteProduct(int  productId) {
+        if (productRepository.existsById(productId)) {
+            productImageRepository.deleteByProductId(productId);
+            productRepository.deleteById(productId);
+        } else {
+            throw new RuntimeException("Product with ID " + productId + " not found.");
+        }
     }
 }
